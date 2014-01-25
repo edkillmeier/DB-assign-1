@@ -157,9 +157,30 @@ public class Table
 
         Table result = new Table (name + count++, attribute, domain, key);
 
-             //-----------------\\ 
-            // TO BE IMPLEMENTED \\
-           //---------------------\\ 
+       //Check if tables are the same	
+          if(this.compatible(table2)){
+        	  //Add all the tuples from this table to result table
+        	  for(Comparable [] tup : tuples){
+        		  result.insert(tup);
+        	  }
+        	  //Check to see if there are matching tuples, if there are
+        	  //then don't add, if there is no match then add the tuple.
+        	  for(int i = 0; i < table2.tuples.size(); i++){
+        		  boolean check = false;
+        		  for(int k = 0; k < tuples.size(); k++){
+        			  if(table2.tuples.get(i).equals(tuples.get(k))){
+        				  check = true;
+        			  }
+        		  }
+        		  if(!check){
+        			  result.insert(table2.tuples.get(i));
+        		  }
+        	  }
+          }
+          //If tables are not compatible.
+          else{
+        	  out.println("Tables are not compatible");
+          } 
 
         return result;
     } // union
